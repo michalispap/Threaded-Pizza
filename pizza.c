@@ -1,4 +1,4 @@
-#include "p3170030-p3170213-p3180149-pizza1.h"
+#include "pizza.h"
 
 pthread_mutex_t lock;
 pthread_cond_t cond;
@@ -59,7 +59,7 @@ void *exec_thread(void *threadid) {
 	status  = pthread_mutex_unlock(&lock);
 
 	status  = pthread_mutex_lock(&lock);
-	printf("Η παραγγελία με αριθμό %d ετοιμάστηκε σε %d λεπτά.\n", tid, (int) thread_time);
+	printf("The order with number %d was completed in %d minutes.\n", tid, (int) thread_time);
 	status  = pthread_cond_signal(&cond);	
 	status  = pthread_mutex_unlock(&lock);
 	
@@ -93,8 +93,8 @@ int main(int argc, char *argv[]) {
 		pthread_join(threads[i], NULL);
 	}
 
-	printf("Μέσος χρόνος ολοκλήρωσης παραγγελιών: %.2f λεπτά.\n", total_time/ n_cust);
-	printf("Μέγιστος χρόνος ολοκλήρωσης παραγγελίας: %d λεπτά.\n", (int) max_time);
+	printf("Average order completion time: %.2f minutes.\n", total_time/ n_cust);
+	printf("Maximum order completion time: %d minutes.\n", (int) max_time);
 
 	pthread_mutex_destroy(&lock);
 	pthread_cond_destroy(&cond);
